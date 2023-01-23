@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Host">
+
+    <TextView
+        android:id="@+id/t1d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:text="What are"
+        android:textColor="@color/charcoal"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/t2d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t1d"
+        android:layout_marginStart="20dp"
+        android:text="looking for?"
+        android:textColor="@color/charcoal"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/s_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_baseline_search_24" />
+
+    <LinearLayout
+        android:id="@+id/conte1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t2d"
+        android:layout_marginTop="43dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/row1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/rounded_shape">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_home_24" />
+
+
+            <TextView
+                android:id="@+id/house"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img1"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="House"
+                android:textColor="@color/charcoal"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/house"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:text="400 results"
+                android:textColor="@color/charcoal"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/row2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/rounded_shape">
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_apartment_24" />
+
+
+            <TextView
+                android:id="@+id/apartment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img2"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Apartment"
+                android:textColor="@color/charcoal"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/apartment"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:text="200 results"
+                android:textColor="@color/charcoal"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/conte2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conte1"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/row3"
+            android:background="@drawable/rounded_shape"
+            android:layout_marginStart="30dp">
+
+            <ImageView
+                android:id="@+id/img3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_school_24" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img3"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="7dp"
+                android:text="Hostel"
+                android:id="@+id/hostel"
+                android:textColor="@color/charcoal"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hostel"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:text="300 results"
+                android:textColor="@color/charcoal"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/row4"
+            android:background="@drawable/rounded_shape"
+            android:layout_marginStart="30dp">
+
+            <ImageView
+                android:id="@+id/img4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_sensor_door_24" />
+
+
+            <TextView
+                android:id="@+id/office"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img4"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="7dp"
+                android:text="Office"
+                android:textColor="@color/charcoal"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/office"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:text="180 results"
+                android:textColor="@color/charcoal"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ttnb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conte2"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="37dp"
+        android:text="nearby"
+        android:textColor="@color/charcoal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nearbyview"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_below="@+id/conte2"
+        android:layout_marginTop="70dp"
+        android:background="@color/white"
+        android:scrollbars="horizontal" />
+
+</RelativeLayout>

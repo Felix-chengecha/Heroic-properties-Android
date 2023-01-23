@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/Talk"
+        android:title="talktous"
+        android:icon="@drawable/ic_baseline_local_phone_24"
+        />
+    <item android:id="@+id/PProfile"
+        android:title="profile"
+        android:icon="@drawable/ic_baseline_person_24"/>
+
+    <item android:id="@+id/filter"
+        android:title="search filters"
+        android:icon="@drawable/ic_baseline_search_24">
+        <menu>
+            <item
+                android:id="@+id/floc"
+                android:title="locations"/>
+            <item
+                android:id="@+id/fhouse"
+                android:title="house" />
+            <item
+                android:id="@+id/fcost"
+                android:title="cost" />
+        </menu>
+    </item>
+
+    <item android:id="@+id/SIgnout"
+        android:title="signout"
+        android:icon="@drawable/ic_baseline_sensor_door_24"/>
+</menu>
