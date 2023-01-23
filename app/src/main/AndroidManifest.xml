@@ -21,9 +21,7 @@
         android:theme="@style/Theme.HeroicProperties"
         tools:targetApi="31">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value=" AIzaSyB2zLqWwZO9TfvWg6UBNLl0yr4u6IaArpE" />
+
         <meta-data
             android:name="com.google.android.gms.Version"
             android:value="@integer/google_play_services_version" />
