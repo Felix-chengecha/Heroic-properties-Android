@@ -1,34 +1,40 @@
 package com.example.heroic_properties.Utils;
 
 public class Base_url {
-    private static String mainUrl = "http://35.232.36.71:8081/";
-    private static String authUrl = "http://35.232.36.71:8081/";
+    private static String mainUrl = "https://efea-105-161-72-4.in.ngrok.io/";
+//    private static String authUrl = "http://35.232.36.71:8081";
 
 
 
     public static String getallproperties(){
-        return mainUrl + "api/properties/all";
+        return mainUrl + "api/properties/category";
     }
 
-    public static String getnearbyproperty(String loc) {
-        return mainUrl + "/api/properties/nearby?location" + loc;
+    public static String getnearbyproperty() {
+        return mainUrl + "api/properties/nearby";
+    }
+
+    public static String getpropertyimages(){
+        return mainUrl + "api/properties/images";
+    }
+
+    public static String getproductdetails(){
+        return mainUrl + "api/properties/details";
+    }
+
+    public static String getuserdetails(){
+        return mainUrl + "api/properties/userdetails";
     }
 
     public static String getcategory(String category) {
         return mainUrl + "api/properties/category?category" +category;
     }
 
-    public static String getpropertyimages(String prop_id){
-        return mainUrl + "api/properties/images?prop_id" +prop_id;
-    }
 
-    public static String getproductdetails(String prop_id){
-        return mainUrl + "/api/properties/details?prop_id" +prop_id;
-    }
 
-    public static String getuserdetails(String email){
-        return mainUrl + "/api/properties/userdetails?email" +email;
-    }
+
+
+
 
     public static String getlocationnames(){
         return mainUrl + "api/properties/locations";
@@ -47,10 +53,10 @@ public class Base_url {
     }
 
     public static  String loginurl(){
-        return authUrl + "api/properties/login";
+        return mainUrl + "api/properties/login";
     }
 
     public static  String registerurl(){
-        return authUrl + "api/properties/register";
+        return mainUrl + "api/properties/register";
     }
 }

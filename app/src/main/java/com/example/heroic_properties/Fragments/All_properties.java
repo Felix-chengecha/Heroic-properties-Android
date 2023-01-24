@@ -45,6 +45,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class All_properties extends Fragment {
     RecyclerView recyclerView;
@@ -101,15 +102,14 @@ public class All_properties extends Fragment {
 
     private void houses(){
         String  Category="House";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Base_url.getcategory(Category), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getallproperties(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
                         try {
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
-
                         String id = object.getString("id");
                         String name = object.getString("name");
                         String type = object.getString("type");
@@ -147,23 +147,31 @@ public class All_properties extends Fragment {
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 
             }
-        });
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String>map=new HashMap<>();
+                map.put("category", Category);
+                return map;
+            }
+        };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
 
     }
 
     private void apartments(){
         Category="Apartment";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Base_url.getcategory(Category), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getallproperties(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
                         try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                            JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
 
@@ -205,22 +213,30 @@ public class All_properties extends Fragment {
                 }
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
-        });
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String>map=new HashMap<>();
+                map.put("category", Category);
+                return map;
+            }
+        };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
     private void office(){
         Category="Office";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Base_url.getcategory(Category), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getallproperties(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
                         try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                            JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
 
@@ -261,22 +277,31 @@ public class All_properties extends Fragment {
                 }
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
-        });
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String>map=new HashMap<>();
+                map.put("category", Category);
+                return map;
+            }
+        };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
     private void hostels(){
         Category="Hostel";
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, Base_url.getcategory(Category), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getallproperties(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
                         try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                            JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
 
@@ -318,12 +343,21 @@ public class All_properties extends Fragment {
                 }
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
-        });
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String>map=new HashMap<>();
+                map.put("category", Category);
+                return map;
+            }
+        };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
 

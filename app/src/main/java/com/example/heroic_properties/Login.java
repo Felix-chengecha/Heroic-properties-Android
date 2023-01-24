@@ -37,6 +37,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
@@ -60,7 +62,7 @@ public class Login extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verify();
+                checkdetails();
             }
         });
 
@@ -74,109 +76,122 @@ public class Login extends AppCompatActivity {
 
     }
 
-
-    //validate username
-    private boolean checkusername(String uname) {
-        if (TextUtils.isEmpty(uname)) {
-            EmailET.setError("please enter you name");
+    //validate details
+    private void checkdetails() {
+        String email = EmailET.getText().toString().trim();
+        String pword = PasswordET.getText().toString().trim();
+        if (TextUtils.isEmpty(email)) {
+            EmailET.setError("please enter you email address");
             EmailET.requestFocus();
-            return false;
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(uname).matches())
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
             EmailET.setError("please enter a valid email address");
             EmailET.requestFocus();
-            return false;
         }
-        return true;
-    }
-
-    //validate password
-    private boolean checkpassword(String pword) {
-        if (TextUtils.isEmpty(pword)) {
+        else if (TextUtils.isEmpty(pword)) {
             PasswordET.setError("please enter your password");
             PasswordET.requestFocus();
-            return false;
         }
-        return true;
+        else{
+            String PASS = encryptpassword(pword);
+            verify(email, PASS);
+        }
     }
 
-    //verify user
-    public void verify() {
+
+
+    //authenticate various users
+    public void verify(String email, String password) {
         ProgressDialog progressDialog = new ProgressDialog(this);
-        email = EmailET.getText().toString().trim();
-        String Pword = PasswordET.getText().toString().trim();
-        if (checkusername(email) && checkpassword(Pword)) {
-            progressDialog.show();
-            progressDialog.setTitle("Authenticating");
-            progressDialog.setMessage("Authenticating");
 
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Base_url.loginurl(), null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                String success = response.getString("MSG");
-                                if (success.equalsIgnoreCase("user exist welcome")) {
+        progressDialog.show();
+        progressDialog.setTitle("Authenticating");
+        progressDialog.setMessage("Authenticating");
 
-                                        SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("email", email);
-                                        editor.putBoolean("user_logged_in", true);
-                                        editor.commit();
-
-                                    EmailET.setText("");
-                                    PasswordET.setText("");
-                                    progressDialog.dismiss();
-
-                                    Intent Rintent = new Intent(Login.this, Host.class);
-                                    startActivity(Rintent);
-                                }
-                                else{
-                                    Toast.makeText(Login.this, "check your details", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    String message = null;
-                    if (error instanceof NetworkError) {
-                        message = getString(R.string.network_error);
-                    } else if (error instanceof ServerError) {
-                        message = getString(R.string.server_error);
-                    } else if (error instanceof AuthFailureError) {
-                        message = getString(R.string.auth_error);
-                    } else if (error instanceof ParseError) {
-                        message = getString(R.string.parse_error);
-                    } else if (error instanceof TimeoutError) {
-                        message = getString(R.string.timeout_error);
-                    } else {
-                        Toast.makeText(Login.this, error.toString(), Toast.LENGTH_LONG).show();
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.loginurl(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    Boolean success=jsonObject.getBoolean("success");
+                    if(success){
+                        String token=jsonObject.getString("token");
+                        JSONObject object=jsonObject.getJSONObject("user");
+                        String userid=object.getString("id");
+                        SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", token);
+                        editor.putString("user_id",userid);
+                        editor.putBoolean("user_logged_in", true);
+                        editor.commit();
                     }
-                    Toast.makeText(Login.this, message, Toast.LENGTH_LONG).show();
+                    EmailET.setText("");
+                    PasswordET.setText("");
+                    progressDialog.dismiss();
+
+                    Intent Rintent = new Intent(Login.this, Host.class);
+                    startActivity(Rintent);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            })
-            {
-                @Override
-                protected HashMap<String, String> getParams() throws AuthFailureError {
-                    HashMap<String, String> map = new HashMap<String, String>();
-                    map.put("email", email);
-                    map.put("password", Pword);
-                    return map;
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = getString(R.string.network_error);
+                } else if (error instanceof ServerError) {
+                    message = getString(R.string.server_error);
+                } else if (error instanceof AuthFailureError) {
+                    message = getString(R.string.auth_error);
+                } else if (error instanceof ParseError) {
+                    message = getString(R.string.parse_error);
+                } else if (error instanceof TimeoutError) {
+                    message = getString(R.string.timeout_error);
+                } else {
+                    Toast.makeText(Login.this,error.toString(), Toast.LENGTH_LONG).show();
                 }
-            };
-            RequestQueue queue = Volley.newRequestQueue(this);
-            jsonObjectRequest.setRetryPolicy(
-                    new DefaultRetryPolicy(0,-1,
-                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            queue.add(jsonObjectRequest);
+                Toast.makeText(Login.this, message, Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Override
+            protected HashMap<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("email", email);
+                map.put("password", password);
+                return map;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        stringRequest.setRetryPolicy(
+                new DefaultRetryPolicy(0,-1,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(stringRequest);
+
+    }
+
+    private String encryptpassword(String password){
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
+        return generatedPassword;
     }
 
 }

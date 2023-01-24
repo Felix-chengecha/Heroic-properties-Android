@@ -40,6 +40,7 @@ public class Home_Adapter extends RecyclerView.Adapter<home_adapter> {
         Property_model nm=nmodel.get(position);
         holder.location.setText(nm.getLocation());
         holder.type.setText(nm.getType());
+        holder.cost.setText(String.format("%s KES", nm.getCost()));
         Glide.with(context)
                 .load(nm.getImage())
                 .into(holder.img);
@@ -71,7 +72,7 @@ public class Home_Adapter extends RecyclerView.Adapter<home_adapter> {
 class home_adapter extends RecyclerView.ViewHolder{
     ImageView img;
     RelativeLayout Nearby_rv;
-    TextView type,location;
+    TextView type,location,cost;
 
     public home_adapter(@NonNull View itemView) {
         super(itemView);
@@ -79,6 +80,7 @@ class home_adapter extends RecyclerView.ViewHolder{
         type=itemView.findViewById(R.id.prop_type);
         location=itemView.findViewById(R.id.prop_loc);
         img=itemView.findViewById(R.id.prop_img);
+        cost=itemView.findViewById(R.id.Ncost);
 
     }
 }

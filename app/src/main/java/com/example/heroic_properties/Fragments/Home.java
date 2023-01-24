@@ -41,7 +41,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Home extends Fragment implements View.OnClickListener {
 RecyclerView Nearbyview;
@@ -84,17 +86,17 @@ ImageView search_Link;
     }
 
     private void fetchnearby() {
-        String loc="random";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Base_url.getnearbyproperty(loc), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        String loc="tena estate";
 
+
+      StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getnearbyproperty(), new Response.Listener<String>() {
+          @Override
+          public void onResponse(String response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray("data");
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
-
                                 String id = object.getString("id");
                                 String name = object.getString("name");
                                 String location = object.getString("location");
@@ -140,12 +142,21 @@ ImageView search_Link;
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 
             }
-        });
+        })
+      {
+          @Nullable
+          @Override
+          protected Map<String, String> getParams() throws AuthFailureError {
+              HashMap<String, String> map=new HashMap<>();
+              map.put("location", loc);
+              return map;
+          }
+      };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
 
     }
 

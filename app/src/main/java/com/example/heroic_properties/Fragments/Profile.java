@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.heroic_properties.Login;
 import com.example.heroic_properties.R;
 import com.example.heroic_properties.Utils.Base_url;
 
@@ -39,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Profile extends Fragment {
 
@@ -58,19 +61,31 @@ public class Profile extends Fragment {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_info", MODE_PRIVATE);
-        String email = sharedPreferences.getString("email", null);
+        String token = sharedPreferences.getString("token", null);
+        String user_id = sharedPreferences.getString("user_id", null);
 
-        fetchuser(email);
+        if(token!=null) {
+            fetchuser(user_id);
+            link.setText("personal details");
+        }
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
-    private void fetchuser(String email) {
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, Base_url.getuserdetails(email), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+    private void fetchuser(String id) {
+       StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getuserdetails(), new Response.Listener<String>() {
+           @Override
+           public void onResponse(String response) {
+                      try{
+                          JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
 //                            String id = object.getString("id");
@@ -78,7 +93,6 @@ public class Profile extends Fragment {
                             String EMail = object.getString("email");
                             Name.setText(NAme);
                             Email.setText(EMail);
-                            link.setVisibility(View.GONE);
                         }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -104,11 +118,21 @@ public class Profile extends Fragment {
                 }
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
-        });
+        }){
+           @Nullable
+           @Override
+           protected Map<String, String> getParams() throws AuthFailureError {
+               HashMap<String,String>map=new HashMap<>();
+               map.put("user_id",id);
+               return map;
+           }
+       };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
+
+
 }

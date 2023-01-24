@@ -17,7 +17,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imgnrb"
-            android:layout_width="90dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
@@ -40,7 +40,7 @@
             android:id="@+id/prop_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="9dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/imgnrb"
             android:text="type"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/prop_type"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/imgnrb"
             android:drawableStart="@drawable/ic_baseline_location_on_24"
@@ -64,14 +64,18 @@
             android:textStyle="italic" />
 
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <TextView
+            android:id="@+id/Ncost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/prop_loc"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/link" />
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imgnrb"
+            android:text="12000ksh"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

@@ -53,6 +53,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class More_details extends Fragment {
 
@@ -145,12 +146,13 @@ public class More_details extends Fragment {
 
     private void fetchimages(String prop_id) {
         imageList =new  ArrayList<>();
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, Base_url.getpropertyimages(prop_id), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getpropertyimages(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
                         try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                     JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         String image= object.getString("images");
@@ -181,22 +183,31 @@ public class More_details extends Fragment {
                 }
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
-        });
+        }){
+
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String>map=new HashMap<>();
+                map.put("prop_id", prop_id);
+                return map;
+            }
+        };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
 
     private void fetchdetails(String prop_id) {
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, Base_url.getproductdetails(prop_id), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+      StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getproductdetails(), new Response.Listener<String>() {
+          @Override
+          public void onResponse(String response) {
+              try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
 
@@ -245,12 +256,20 @@ public class More_details extends Fragment {
                 }
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
-        });
+        }){
+          @Nullable
+          @Override
+          protected Map<String, String> getParams() throws AuthFailureError {
+              HashMap<String,String>map=new HashMap<>();
+              map.put("prop_id",prop_id);
+              return map;
+          }
+      };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
     private void showalertdialog() {

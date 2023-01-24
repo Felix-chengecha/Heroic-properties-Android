@@ -195,12 +195,12 @@ public class Search_loc extends Fragment {
         progressDialog.setTitle("fetching data");
         progressDialog.setMessage("wait");
         progressDialog.show();
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, Base_url.searchprop(), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+          StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.searchprop(), new Response.Listener<String>() {
+              @Override
+              public void onResponse(String response) {
                         try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                            JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     progressDialog.dismiss();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
@@ -256,19 +256,19 @@ public class Search_loc extends Fragment {
             }
         };
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
     private void fetchlocs() {
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, Base_url.getlocationnames(), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+      StringRequest stringRequest=new StringRequest(Request.Method.GET, Base_url.getlocationnames(), new Response.Listener<String>() {
+          @Override
+          public void onResponse(String response) {
                         try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                            JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                              String locs = object.getString("location");
@@ -304,19 +304,19 @@ public class Search_loc extends Fragment {
             }
         });
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                        new DefaultRetryPolicy(0,-1,
                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                               queue.add(jsonObjectRequest);
+                               queue.add(stringRequest);
     }
 
     private void fetchprops() {
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, Base_url.getpropnames(), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+         StringRequest stringRequest=new StringRequest(Request.Method.GET, Base_url.getpropnames(), new Response.Listener<String>() {
+             @Override
+             public void onResponse(String response) {
+                 try {
+                     JSONObject jsonObject=new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         String types = object.getString("prop");
@@ -353,10 +353,10 @@ public class Search_loc extends Fragment {
             }
         });
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
 

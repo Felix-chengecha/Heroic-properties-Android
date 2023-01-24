@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Category extends Fragment {
 
@@ -100,12 +101,13 @@ public class Category extends Fragment {
     private void fetchcategory(String Category) {
         nearby_models.clear();
         swipeGrid.setRefreshing(true);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Base_url.getcategory(Category), null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Base_url.getallproperties(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    swipeGrid.setRefreshing(false);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
 
@@ -118,7 +120,7 @@ public class Category extends Fragment {
                         String cost = object.getString("cost");
 
 
-                        Property_model nbmodel=new Property_model(id,name,location, image,cost, type);
+                        Property_model nbmodel = new Property_model(id, name, location, image, cost, type);
                         nearby_models.add(nbmodel);
                         category_adapter.notifyDataSetChanged();
 
@@ -155,12 +157,22 @@ public class Category extends Fragment {
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 
             }
-        });
+        })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String>map=new HashMap<>();
+                map.put("category", Category);
+                return map;
+            }
+        };
+
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        jsonObjectRequest.setRetryPolicy(
+        stringRequest.setRetryPolicy(
                 new DefaultRetryPolicy(0,-1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(jsonObjectRequest);
+        queue.add(stringRequest);
     }
 
     private void replacefrag(@NonNull Fragment fragment, String pid) {

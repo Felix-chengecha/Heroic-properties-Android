@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:text="name"
-                android:textColor="@color/charcoal"
+                android:textColor="@color/black"
                 android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_baseline_location_on_24" />
 
@@ -70,7 +70,7 @@
                 android:layout_marginStart="65dp"
                 android:layout_marginTop="3dp"
                 android:text="type"
-                android:textColor="@color/charcoal"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
 
 
@@ -87,18 +87,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="22dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Cost"
             android:textColor="@color/black"
             android:textSize="11sp" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="170dp"
-            android:layout_below="@+id/prop_loc"
-            android:src="@drawable/link" />
+
 
     </LinearLayout>
 
