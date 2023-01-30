@@ -1,7 +1,7 @@
 package com.example.heroic_properties.Utils;
 
 public class Base_url {
-    private static String mainUrl = "https://efea-105-161-72-4.in.ngrok.io/";
+    private static String mainUrl = "https://1156-105-61-238-65.in.ngrok.io/";
 //    private static String authUrl = "http://35.232.36.71:8081";
 
 
