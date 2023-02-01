@@ -40,6 +40,7 @@ public class Property_Adapter  extends RecyclerView.Adapter<property_adapter> {
         holder.Loc.setText(nm.getLocation());
         holder.Cost.setText(String.format(" %sKES/month",nm.getCost()));
         holder.cType.setText(nm.getType());
+        holder.name.setText(nm.getPname());
         Glide.with(context)
                 .load(nm.getImage())
                 .into(holder.img_child);
@@ -73,12 +74,13 @@ public class Property_Adapter  extends RecyclerView.Adapter<property_adapter> {
 class property_adapter extends RecyclerView.ViewHolder{
     LinearLayout rlayout;
     ImageView img_child;
-    TextView Cost, Loc, cType, CKost;
+    TextView Cost, Loc, cType, name;
 
     public property_adapter (@NonNull View itemView) {
         super(itemView);
 
         rlayout=itemView.findViewById(R.id.Rlayout);
+        name=itemView.findViewById(R.id.cname);
         img_child=itemView.findViewById(R.id.iv_child);
         Cost=itemView.findViewById(R.id.Ccost);
         Loc=itemView.findViewById(R.id.loc);

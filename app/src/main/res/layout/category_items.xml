@@ -52,26 +52,27 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:text="name"
-                android:textColor="@color/black"
-                android:textSize="11sp"
-                app:drawableStartCompat="@drawable/ic_baseline_location_on_24" />
+        <TextView
+            android:id="@+id/cname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="4dp"
+            android:text="name"
+            android:textColor="@color/black"
+            android:textSize="11sp"/>
 
 
-            <TextView
-                android:id="@+id/Ctype"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="65dp"
-                android:layout_marginTop="3dp"
-                android:text="type"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+        <TextView
+            android:id="@+id/Ctype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="50dp"
+            android:text="type"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
 
 
         </LinearLayout>
@@ -82,12 +83,27 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
+
+
+        <TextView
+            android:id="@+id/loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="loc"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:drawableStartCompat="@drawable/ic_baseline_location_on_24" />
+
+
+
         <TextView
             android:id="@+id/Ccost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_marginStart="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="50dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Cost"
             android:textColor="@color/black"

@@ -59,7 +59,6 @@ public class Category extends Fragment {
     SwipeRefreshLayout swipeGrid;
     ImageView TsrC;
 
-    public String categ_url="https://8426-105-160-20-207.in.ngrok.io/api/properties/category";
 
     @Nullable
     @Override

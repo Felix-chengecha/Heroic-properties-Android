@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lay1"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lay0"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -135,13 +135,12 @@
     <TextView
         android:id="@+id/prop_desc"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/lay2"
         android:layout_marginStart="35dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="20dp"
-        android:text="Good evening, im writing this to inform you about
-                       the completion of  the implementation part of hotel management system for blixen africa resort."
+        android:scrollbars="vertical"
         android:textColor="@color/charcoal"
         android:textSize="13sp" />
 
@@ -151,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/prop_desc"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
         <TextView
@@ -218,7 +217,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/amenities"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="22dp">
 
         <TextView
             android:id="@+id/Prop_cost"
@@ -261,7 +260,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rbok"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="13dp"
         android:layout_marginBottom="1dp">
 
         <TextView
@@ -269,7 +269,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="15dp"
             android:text="Agent"
             android:textColor="@color/black"
             android:textSize="13sp" />
@@ -280,7 +279,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/od"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="felix gitau"
             android:textSize="12sp" />
